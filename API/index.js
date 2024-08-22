@@ -14,6 +14,16 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use("/api/user",userRoute);
 app.use("/api/user", userRoute)
 
+app.use((error,req,res,next)=>{
+    const statusCode = error.statusCode || 500
+    const message = error.message || "Internal server error"
+    res.status(statusCode).json({
+        success : false,
+        statusCode,
+        message
+    })
+})
+
 app.listen(3000,()=>{
     console.log('server is running on port 3000');
 })
