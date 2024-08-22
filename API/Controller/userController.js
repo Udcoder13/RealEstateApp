@@ -15,7 +15,7 @@ const signUp = async(req,res,next)=>{
     try {
         await userModel.create(user);
         console.log("user created")
-        res.send(user)
+        // res.send(user)
     } catch (error) {
         next(error)
     }
