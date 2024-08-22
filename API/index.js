@@ -11,7 +11,6 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.use("/api/user",userRoute);
 app.use("/api/user", userRoute)
 
 app.use((error,req,res,next)=>{

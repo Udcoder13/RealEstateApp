@@ -5,7 +5,7 @@ const errorHandler = require('../Utils/errorHandler');
 
 const signUp = async(req,res,next)=>{
     const data = req.body;
-    console.log(data)
+    // console.log(data)
     const securedPass = bcryptjs.hashSync(data.password, 10)
     const user = {
         username:data.username,
@@ -14,6 +14,7 @@ const signUp = async(req,res,next)=>{
     }
     try {
         await userModel.create(user);
+        res.json({message:"user created"})
         console.log("user created")
         // res.send(user)
     } catch (error) {
