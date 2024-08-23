@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { loginStart, loginSuccess, loginFailiure } from '../Redux/userSlice'
 
 
 export default function Login() {
-
+  const dispatch = useDispatch();
   const [userData, setData] = useState({
     email: '',
     password: '',
   })
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const {loading, error} = useSelector((state)=> state.user);
   const navigate = useNavigate()
 
   const handleChange = (event)=>{
@@ -19,7 +20,7 @@ export default function Login() {
   const handleSubmit = async(e)=>{
     e.preventDefault()
     try {
-      setLoading(true)
+      dispatch(loginStart)
       const res = await fetch('/api/user/login',{
       method: 'POST',
       headers: {
@@ -29,16 +30,13 @@ export default function Login() {
       })
       const data = await res.json()
       if(data.success === false){
-        setLoading(false)
-        setError(data.message)
+        dispatch(loginFailiure(data.message))
         return;
       }
-      setLoading(false);
-      setError(null);
+      dispatch(loginSuccess(data))
       navigate('/')
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(loginFailiure(error.message))
     }
   }
 

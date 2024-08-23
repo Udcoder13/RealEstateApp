@@ -9,6 +9,8 @@ import Profile from './Pages/Profile.jsx'
 import Login from './Pages/Login.jsx'
 import SignUp from './Pages/Signup.jsx'
 import Layout from './layout.jsx'
+import { store } from './Redux/store.js'
+import { Provider } from 'react-redux'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +25,7 @@ const router = createBrowserRouter(
 )
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <Provider store={store}>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </Provider>,
 )
