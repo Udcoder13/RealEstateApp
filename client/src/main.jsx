@@ -12,13 +12,16 @@ import Layout from './layout.jsx'
 import { persistor, store } from './Redux/store.js'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+import PrivatRoute from './Components/PrivatRoute.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} >
       <Route path="" element={<Home />} />
       <Route path="about" element={<About />} />
-      <Route path="profile" element={<Profile />} />
+      <Route element={<PrivatRoute />}>
+        <Route path="profile" element={<Profile />} />
+      </Route>
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
     </Route>
