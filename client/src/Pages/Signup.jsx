@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import GoogleAuth from '../Components/GoogleAuth'
 
 
 export default function SignUp() {
@@ -57,9 +58,10 @@ export default function SignUp() {
           <button  type="submit" className='bg-slate-700 text-white p-3
           rounded-lg uppercase hower:opacity-95
           disabled:opacity-88'>{loading? "Loading...":"Sign Up"}</button>
+          <GoogleAuth />
         </form>
         <div className='flex gap-2 mt-5'>
-          <p>Hane an account?</p>
+          <p>Have an account?</p>
           <Link to={"/login"}>
             <span className='text-blue-700'>Login</span>
           </Link>

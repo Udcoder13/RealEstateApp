@@ -43,7 +43,7 @@ export default function Login() {
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center font-semibold ,y-7'>
-        Sign Up</h1>
+        Login</h1>
         <form className='flex flex-col gap-4'onSubmit={handleSubmit}>
           <input type="text" placeholder='email'
           className='border p-3 rounded-lg' id='email'onChange={handleChange}/>
@@ -54,7 +54,7 @@ export default function Login() {
           disabled:opacity-88'>{loading? "Loading...":"Login"}</button>
         </form>
         <div className='flex gap-2 mt-5'>
-          <p>Dont hane an account?</p>
+          <p>Dont have an account?</p>
           <Link to={"/signup"}>
             <span className='text-blue-700'>Sign Up</span>
           </Link>

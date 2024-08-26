@@ -14,6 +14,10 @@ const user = new mongoose.Schema({
     password:{
         type: String,
         required: true,
+    },
+    avatar:{
+        type: String,
+        default: '../Assets/default.png'
     }
 },{timestamps:true})
 
