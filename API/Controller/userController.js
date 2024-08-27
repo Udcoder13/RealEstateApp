@@ -35,7 +35,7 @@ const login = async(req,res,next)=>{
         if(!passCompare){
             return next(errorHandler(401,"Wrong Credentials"))
         }
-        const token = jwt.sign({id:result._id},process.env.JWT_SECRET_KEY,)
+        const token = jwt.sign({id:result._id},process.env.JWT_SECRET_KEY)
         const {password: pass, ...rest} = result._doc
         res.cookie('access_token',token, {httpOnly: true})
         .status(200)

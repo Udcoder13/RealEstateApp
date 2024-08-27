@@ -3,6 +3,9 @@ const dbConnect = require('./DB')
 const userRoute = require('./Router/userRoute')
 const path = require("path");
 const bodyParser = require("body-parser");
+const updateRoute = require("./Router/updateRoute")
+const cookieParser = require("cookie-parser")
+
 
 const app = express();
 
@@ -11,7 +14,9 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(cookieParser());
 app.use("/api/user", userRoute)
+app.use("/api/update", updateRoute)
 
 app.use((error,req,res,next)=>{
     const statusCode = error.statusCode || 500
