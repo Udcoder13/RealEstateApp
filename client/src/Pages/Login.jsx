@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginStart, loginSuccess, loginFailiure } from '../Redux/userSlice'
+import GoogleAuth from '../Components/GoogleAuth';
 
 
 export default function Login() {
@@ -20,7 +21,7 @@ export default function Login() {
   const handleSubmit = async(e)=>{
     e.preventDefault()
     try {
-      dispatch(loginStart)
+      dispatch(loginStart())
       const res = await fetch('/api/user/login',{
       method: 'POST',
       headers: {
@@ -52,6 +53,7 @@ export default function Login() {
           <button  type="submit" className='bg-slate-700 text-white p-3
           rounded-lg uppercase hower:opacity-95
           disabled:opacity-88'>{loading? "Loading...":"Login"}</button>
+          <GoogleAuth />
         </form>
         <div className='flex gap-2 mt-5'>
           <p>Dont have an account?</p>

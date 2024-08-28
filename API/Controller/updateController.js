@@ -3,6 +3,8 @@ const bcryptjs = require("bcryptjs");
 const errorHandler = require('../Utils/errorHandler');
 const jwt = require('jsonwebtoken');
 const updateUser = async(req,res,next)=>{
+    console.log(req.params.id)
+    console.log(req.user.id)
     if(req.user.id !== req.params.id) return(next(errorHandler(403, "Forbidden")))
     try {
         if(req.body.password){

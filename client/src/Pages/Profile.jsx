@@ -12,7 +12,7 @@ export default function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false)
   const [formData, setFormData] = useState({})
   console.log(filePercent)
-  console.log(formData)
+  // console.log(formData)
 
   useEffect(()=>{
     if(file){
@@ -43,10 +43,32 @@ export default function Profile() {
   )
   }
 
+  const handleUpdateChange = (e)=>{
+    setFormData({...formData, [e.target.id]: e.target.value})
+  }
+
+  const handleUpdateSubmit = async(e)=>{
+    e.preventDefault();
+    const id = user._id
+    try {
+      const res = await fetch(`api/update/updateProfile/${id}`,{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+      const data = await res.json()
+      console.log(data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center'>Profile</h1>
-      <form className='flex flex-col gap-4'>
+      <form className='flex flex-col gap-4'onSubmit={handleUpdateSubmit}>
         <input  onChange = {(e)=>setFile(e.target.files[0])} type='file' ref={fileRef} style={{display: "none"}}/>
         <img onClick={()=>fileRef.current.click()} src={formData.avatar || user.avatar} alt='profile pic' className='
         rounded-full h-24 w-24 object-cover cursor-pointer
@@ -64,12 +86,12 @@ export default function Profile() {
             ) : ("")
           }
         </p>
-        <input type="text" placeholder='username' className='
-        border p-3 rounded-lg' id='username'/>
-        <input type="email" placeholder='email' className='
-        border p-3 rounded-lg' id='email'/>
-        <input type="text" placeholder='username' className='
-        border p-3 rounded-lg' id='password'/>
+        <input type="text" placeholder={user.username} className='
+        border p-3 rounded-lg' id='username'onChange={handleUpdateChange}/>
+        <input type="email" placeholder={user.email} className='
+        border p-3 rounded-lg' id='email'onChange={handleUpdateChange}/>
+        <input type="password" placeholder='password' className='
+        border p-3 rounded-lg' id='password'onChange={handleUpdateChange}/>
         <button className='bg-slate-700 text-white rounded-lg
         p-3 uppercase hover:opacity-95 disabled:opacity-80'>update</button>
       </form>
