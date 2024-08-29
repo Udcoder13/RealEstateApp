@@ -17,7 +17,7 @@ const user = new mongoose.Schema({
     },
     avatar:{
         type: String,
-        default: '../Assets/default.png'
+        default: 'https://firebasestorage.googleapis.com/v0/b/real-estate-mern-711ee.appspot.com/o/default.png?alt=media&token=f65db1b8-9e61-40b0-88cf-408ef303ad75'
     }
 },{timestamps:true})
 

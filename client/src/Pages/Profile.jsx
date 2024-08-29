@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable }  from 'firebase/storage'
 import { app } from '../firebase'
-import { signOut } from '../Redux/userSlice'
+import { signOut, updateProfile } from '../Redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 
 export default function Profile() {
@@ -13,6 +13,7 @@ export default function Profile() {
   const [filePercent,  setFilePercent] = useState(0)
   const [fileUploadError, setFileUploadError] = useState(false)
   const [formData, setFormData] = useState({})
+  const [error, setError] = useState(null)
   console.log(filePercent)
   // console.log(formData)
   const dispatch = useDispatch()
@@ -41,6 +42,7 @@ export default function Profile() {
     ()=>{
       getDownloadURL(uploadTask.snapshot.ref).then
       ((downloadURL) => {
+        console.log(downloadURL)
         setFormData({...formData, avatar:downloadURL})
       })
     }
@@ -64,8 +66,14 @@ export default function Profile() {
       })
       const data = await res.json()
       console.log(data);
+      if(data.success === false){
+        setError(data.message);
+        return;
+      }
+      dispatch(updateProfile(data))
     } catch (error) {
       console.log(error)
+      setError(error.message)
     }
   }
 
@@ -123,6 +131,7 @@ export default function Profile() {
         <button className='bg-slate-700 text-white rounded-lg
         p-3 uppercase hover:opacity-95 disabled:opacity-80'>update</button>
       </form>
+      {error && <p className='text-red-600'>{error}</p>}
       <div className='flex justify-between mt-5'>
         <span className='text-red-700 cursor-pointer hover:underline'onClick={handleDelete}>Delete Account</span>
         <span className='text-red-700 cursor-pointer hover:underline'onClick={handleSignOut}>Sign Out</span>
