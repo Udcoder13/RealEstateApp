@@ -16,7 +16,7 @@ export default function GoogleAuth() {
         const auth = getAuth(app)
 
         const result = await signInWithPopup(auth, provider)
-        console.log(result)
+        console.log("result:",result)
         const res = await fetch('/api/user/google',{
             method: 'POST',
             headers: {
@@ -25,6 +25,7 @@ export default function GoogleAuth() {
             body: JSON.stringify({name: result.user.displayName, email: result.user.email, photo: result.user.photoURL}),
         })
         const data = await res.json()
+        console.log("data: ",data)
         dispatch(loginSuccess(data))
         navigate("/")
     } catch (error) {

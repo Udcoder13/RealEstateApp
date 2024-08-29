@@ -62,9 +62,9 @@ const googleLogin = async(req,res,next)=>{
             const newUser = {username: req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4),
                 email:req.body.email, password: hashedPass, avatar: req.body.photo
             }
-            await userModel.create(newUser);
-            const token = jwt.sign({id:result._id},process.env.JWT_SECRET_KEY,)
-            const {password: pass, ...rest} = result._doc
+            const rslt = await userModel.create(newUser);
+            const token = jwt.sign({id:rslt._id},process.env.JWT_SECRET_KEY,)
+            const {password: pass, ...rest} = rslt._doc
             res.cookie('access_token',token, {httpOnly: true})
             .status(200)
             .json(rest)

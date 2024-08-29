@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable }  from 'firebase/storage'
 import { app } from '../firebase'
+import { signOut } from '../Redux/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 export default function Profile() {
   const { user }= useSelector((state) => state.user)
@@ -13,6 +15,8 @@ export default function Profile() {
   const [formData, setFormData] = useState({})
   console.log(filePercent)
   // console.log(formData)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(()=>{
     if(file){
@@ -65,6 +69,30 @@ export default function Profile() {
     }
   }
 
+  const handleSignOut = ()=>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    dispatch(signOut())
+    navigate("/")
+  }
+
+  const handleDelete = async()=>{
+    handleSignOut();
+    const id = user._id
+    try {
+      const res = await fetch(`/api/update/deleteProfile/${id}`,{
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const data = await res.json()
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center'>Profile</h1>
@@ -96,8 +124,8 @@ export default function Profile() {
         p-3 uppercase hover:opacity-95 disabled:opacity-80'>update</button>
       </form>
       <div className='flex justify-between mt-5'>
-        <span className='text-red-700 cursor-pointer hover:underline'>Delete Account</span>
-        <span className='text-red-700 cursor-pointer hover:underline'>Sign Out</span>
+        <span className='text-red-700 cursor-pointer hover:underline'onClick={handleDelete}>Delete Account</span>
+        <span className='text-red-700 cursor-pointer hover:underline'onClick={handleSignOut}>Sign Out</span>
       </div>
     </div>
   )

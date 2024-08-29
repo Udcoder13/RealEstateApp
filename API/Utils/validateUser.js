@@ -7,7 +7,6 @@ function validateUser(req,res,next){
     if(!token){
         return (next(errorHandler(401, "Unauthorised access")))
     }
-    console.log(token)
     jwt.verify(token, process.env.JWT_SECRET_KEY, (error,user)=>{
         if(error){
             console.log(error)
@@ -15,7 +14,6 @@ function validateUser(req,res,next){
         }
         // console.log(user)
         req.user = user;
-        console.log(req.user)
         next()
     })
 }

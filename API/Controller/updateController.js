@@ -26,4 +26,15 @@ const updateUser = async(req,res,next)=>{
     }
 }
 
-module.exports = { updateUser }
+const deleteUser = async(req,res,next)=>{
+    if(req.user.id !== req.params.id) return(next(errorHandler(403, "Forbidden")))
+        try {
+            await userModel.findByIdAndDelete(req.params.id);
+            res.status(200).json({message: "user deleted"});
+        } catch (error) {
+            next(error)
+        }
+    
+}
+
+module.exports = { updateUser, deleteUser }
