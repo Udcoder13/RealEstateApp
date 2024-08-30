@@ -5,6 +5,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const updateRoute = require("./Router/updateRoute")
 const cookieParser = require("cookie-parser")
+const listingRoute = require("./Router/listingRoute")
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 app.use("/api/user", userRoute)
 app.use("/api/update", updateRoute)
+app.use("/api/listing", listingRoute)
 
 app.use((error,req,res,next)=>{
     const statusCode = error.statusCode || 500
