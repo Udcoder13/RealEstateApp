@@ -5,6 +5,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable }  from 'firebase
 import { app } from '../firebase'
 import { signOut, updateProfile } from '../Redux/userSlice'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function Profile() {
   const { user }= useSelector((state) => state.user)
@@ -130,6 +131,10 @@ export default function Profile() {
         border p-3 rounded-lg' id='password'onChange={handleUpdateChange}/>
         <button className='bg-slate-700 text-white rounded-lg
         p-3 uppercase hover:opacity-95 disabled:opacity-80'>update</button>
+        <Link to={"/create-listing"} className='bg-green-700 text-white rounded-lg
+        p-3 text-center uppercase hover:opacity-95'>
+          Create Listing
+        </Link>
       </form>
       {error && <p className='text-red-600'>{error}</p>}
       <div className='flex justify-between mt-5'>
