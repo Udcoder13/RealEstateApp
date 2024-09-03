@@ -24,9 +24,19 @@ export default function UserListings() {
         getListings();
     },[])
     
-    // console.log("useSelect listings: ",listings)
+    console.log("useSelect listings: ",listings)
 
-    const deletelisting = (index)=>{
+    const deletelisting = async(index,id)=>{
+        const res = await fetch(`/api/listing/deleteListing/${user._id}/${id}`,{
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        const data = await res.json()
+        if(data.success === false){
+            console.log(data.message)
+        }
         setUserListings(userListings.filter((_,i)=>
         i!==index))
     }
@@ -60,7 +70,7 @@ export default function UserListings() {
                         <p><span className='font-bold'>Discount price:</span> ₹{listing.discountPrice}</p> : ""}
                     </div>
                 </div>
-                <div><OptionsButton deleteFunction = {()=>deletelisting(index)}/></div>
+                <div><OptionsButton deleteFunction = {()=>deletelisting(index,listing._id)}/></div>
     
             </div>
         ))}
