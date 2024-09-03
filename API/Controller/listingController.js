@@ -39,4 +39,19 @@ const deleteListing = async(req,res,next)=>{
     }
 }
 
-module.exports = { createListing, displayListings, deleteListing };
+const updateListing = async(req,res,next)=>{
+    if(req.user.id === req.params.userid){
+        try {
+            const updatedListing = await listingModel.findByIdAndUpdate(req.params.listingid,{
+                $set:req.body
+            },{new: true})
+            res.status(200).json(updatedListing)
+        } catch (error) {
+            next(error)
+        }
+    }else{
+        errorHandler(401, "You can update only your listings")
+    }
+}
+
+module.exports = { createListing, displayListings, deleteListing, updateListing };

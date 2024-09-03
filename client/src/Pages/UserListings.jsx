@@ -7,7 +7,7 @@ export default function UserListings() {
 
     const { user, listings } = useSelector((state)=> state.user)
     const dispatch = useDispatch()
-    const [userListings, setUserListings] = useState(listings)
+    const [userListing, setUserListings] = useState(listings)
     
     useEffect(()=>{
         async function getListings(){
@@ -24,7 +24,7 @@ export default function UserListings() {
         getListings();
     },[])
     
-    console.log("useSelect listings: ",listings)
+    // console.log("useSelect listings: ",listings)
 
     const deletelisting = async(index,id)=>{
         const res = await fetch(`/api/listing/deleteListing/${user._id}/${id}`,{
@@ -37,14 +37,14 @@ export default function UserListings() {
         if(data.success === false){
             console.log(data.message)
         }
-        setUserListings(userListings.filter((_,i)=>
+        setUserListings(userListing.filter((_,i)=>
         i!==index))
     }
 
   return (
     <div>
         <h1 className='my-5 font-bold text-2xl text-center'>My Listings</h1>
-        {userListings.length < 1? <h1>You don't have any listings</h1> :userListings.map((listing,index)=>(
+        {userListing.length < 1? <h1>You don't have any listings</h1> :userListing.map((listing,index)=>(
             <div className='flex p-4 border gap-5'>
                 <img src={listing.images[0]} alt='cover image' className='w-80 h-80 object-cover rounded-lg'></img>
                 <div className='mx-5' >
