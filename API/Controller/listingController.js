@@ -25,4 +25,18 @@ const displayListings = async(req,res,next)=>{
     }
 }
 
-module.exports = { createListing, displayListings };
+const deleteListing = async(req,res,next)=>{
+    if(req.user.id === req.params.userid){
+        try {
+            const listingId = req.params.listingid;
+            await listingModel.findByIdAndDelete(listingId)
+            res.status(200).json({message: "listing deleted"})
+        } catch (error) {
+            next(error)
+        }
+    }else{
+        errorHandler(401, "You can delete only your listings")
+    }
+}
+
+module.exports = { createListing, displayListings, deleteListing };
