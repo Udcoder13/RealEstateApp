@@ -4,6 +4,7 @@ const initialState = {
     user: null,
     loading: false,
     error: null,
+    listings: [],
 }
 
 const userSlice = createSlice({
@@ -27,10 +28,13 @@ const userSlice = createSlice({
         },
         updateProfile: (state,action)=>{
             state.user = action.payload;
+        },
+        userListings: (state,action)=>{
+            state.listings = action.payload;
         }
     }
 })
 
-export const {loginStart, loginSuccess, loginFailiure, signOut, updateProfile} = userSlice.actions;
+export const {loginStart, loginSuccess, loginFailiure, signOut, updateProfile, userListings} = userSlice.actions;
 
 export default userSlice.reducer;

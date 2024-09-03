@@ -139,6 +139,7 @@ export default function Profile() {
       {error && <p className='text-red-600'>{error}</p>}
       <div className='flex justify-between mt-5'>
         <span className='text-red-700 cursor-pointer hover:underline'onClick={handleDelete}>Delete Account</span>
+        <Link to={"/getListings"} className='text-green-700 cursor-pointer hover:underline'>My listings</Link>
         <span className='text-red-700 cursor-pointer hover:underline'onClick={handleSignOut}>Sign Out</span>
       </div>
     </div>
