@@ -40,6 +40,7 @@ const deleteListing = async(req,res,next)=>{
 }
 
 const updateListing = async(req,res,next)=>{
+    // console.log("update listing called")
     if(req.user.id === req.params.userid){
         try {
             const updatedListing = await listingModel.findByIdAndUpdate(req.params.listingid,{

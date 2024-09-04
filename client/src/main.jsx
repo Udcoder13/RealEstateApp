@@ -15,6 +15,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import PrivatRoute from './Components/PrivatRoute.jsx'
 import CreateListing from './Pages/CreateListing.jsx'
 import UserListings from './Pages/UserListings.jsx'
+import UpdateListing from './Pages/UpdateListing.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
         <Route path="profile" element={<Profile />} />
         <Route path="create-listing" element={<CreateListing />} />
         <Route path="getListings" element={<UserListings />} />
+        <Route path="updateListings" element={<UpdateListing />} />
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />

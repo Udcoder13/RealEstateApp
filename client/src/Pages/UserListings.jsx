@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { userListings } from '../Redux/userSlice'
+import { listingToUpdate, userListings } from '../Redux/userSlice'
 import OptionsButton from '../Components/OptionsButton'
+import { useNavigate } from 'react-router-dom'
 
 export default function UserListings() {
 
     const { user, listings } = useSelector((state)=> state.user)
     const dispatch = useDispatch()
     const [userListing, setUserListings] = useState(listings)
+    const navigate = useNavigate()
     
+    console.log("listings",listings)
+    console.log("userListing",userListing)
     useEffect(()=>{
         async function getListings(){
             const response = await fetch(`/api/listing/displayListings/${user._id}`,{
@@ -17,8 +21,9 @@ export default function UserListings() {
                     'Content-Type': 'application/json',
                 }
             })
+            console.log("response",response)
             const data = await response.json()
-            console.log(data)
+            console.log("data",data)
             dispatch(userListings(data))
         }
         getListings();
@@ -41,7 +46,13 @@ export default function UserListings() {
         i!==index))
     }
 
+    const updateListingClick = (l)=>{
+        dispatch(listingToUpdate(l))
+        navigate("/updateListings")
+    }
+
   return (
+    // <></>
     <div>
         <h1 className='my-5 font-bold text-2xl text-center'>My Listings</h1>
         {userListing.length < 1? <h1>You don't have any listings</h1> :userListing.map((listing,index)=>(
@@ -70,7 +81,7 @@ export default function UserListings() {
                         <p><span className='font-bold'>Discount price:</span> ₹{listing.discountPrice}</p> : ""}
                     </div>
                 </div>
-                <div><OptionsButton deleteFunction = {()=>deletelisting(index,listing._id)}/></div>
+                <div><OptionsButton deleteFunction = {()=>deletelisting(index,listing)} updateFunction = {()=>updateListingClick(listing)}/></div>
     
             </div>
         ))}
