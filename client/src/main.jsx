@@ -16,12 +16,14 @@ import PrivatRoute from './Components/PrivatRoute.jsx'
 import CreateListing from './Pages/CreateListing.jsx'
 import UserListings from './Pages/UserListings.jsx'
 import UpdateListing from './Pages/UpdateListing.jsx'
+import Listing from './Pages/Listing.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} >
       <Route path="" element={<Home />} />
       <Route path="about" element={<About />} />
+      <Route path='listing/:listingId' element={<Listing />} /> 
       <Route element={<PrivatRoute />}>
         <Route path="profile" element={<Profile />} />
         <Route path="create-listing" element={<CreateListing />} />

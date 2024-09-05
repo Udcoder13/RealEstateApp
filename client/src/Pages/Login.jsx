@@ -47,9 +47,9 @@ export default function Login() {
         Login</h1>
         <form className='flex flex-col gap-4'onSubmit={handleSubmit}>
           <input type="text" placeholder='email'
-          className='border p-3 rounded-lg' id='email'onChange={handleChange}/>
+          className='border p-3 rounded-lg' id='email' onChange={handleChange}/>
           <input type="password" placeholder='password'
-          className='border p-3 rounded-lg' id='password'onChange={handleChange}/>
+          className='border p-3 rounded-lg' id='password' onChange={handleChange}/>
           <button  type="submit" className='bg-slate-700 text-white p-3
           rounded-lg uppercase hower:opacity-95
           disabled:opacity-88'>{loading? "Loading...":"Login"}</button>

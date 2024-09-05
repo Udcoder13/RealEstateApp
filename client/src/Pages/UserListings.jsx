@@ -29,7 +29,7 @@ export default function UserListings() {
         getListings();
     },[])
     
-    // console.log("useSelect listings: ",listings)
+    console.log("useSelect listings: ",listings)
 
     const deletelisting = async(index,id)=>{
         const res = await fetch(`/api/listing/deleteListing/${user._id}/${id}`,{

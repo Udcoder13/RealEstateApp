@@ -113,6 +113,7 @@ const handleListingUpdate = async(e)=>{
             setLoading(false)
             if(data.success === false){
                 setError(data.message);
+                return;
             }
             navigate("/")
 }catch(error){
