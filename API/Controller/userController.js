@@ -75,4 +75,13 @@ const googleLogin = async(req,res,next)=>{
     }
 }
 
-module.exports = { signUp, login, googleLogin }
+const getLandlord = async(req,res,next)=>{
+    try {
+        const landlord = await userModel.findById(req.params.userId)
+        res.status(200).json(landlord)
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports = { signUp, login, googleLogin, getLandlord }

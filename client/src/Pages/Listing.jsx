@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import SwiperCore from 'swiper'
 import {Navigation} from 'swiper/modules'
@@ -11,6 +11,10 @@ import { IoBed } from "react-icons/io5";
 import { MdBathtub } from "react-icons/md";
 import { FaSquareParking } from "react-icons/fa6";
 import { MdChair } from "react-icons/md";
+import { IoMdMail } from "react-icons/io";
+import { useSelector } from 'react-redux'
+import { FaPaperPlane } from "react-icons/fa6";
+import { MdCancel } from "react-icons/md";
 
 
 export default function Listing() {
@@ -19,6 +23,12 @@ export default function Listing() {
   const params = useParams();
   const [listing, setListing] = useState(null)
   const [error, setError] = useState(false);
+  const [contactBtnToggle, setContactBtnToggle] = useState(false)
+  const { user } = useSelector((state) => state.user)
+  const [landlord,setLandlord] = useState({})
+  const [message, setMessage] = useState("")
+
+  const navigate = useNavigate()
 
     useEffect(()=>{
       try {
@@ -44,6 +54,33 @@ export default function Listing() {
       }
       
     },[params.listingId])
+
+    const handleContactBtnClick = async()=>{
+      if(user === null){
+        navigate("/login")
+      }
+      try {
+        const userInfo = await fetch(`/api/user/getLandlord/${listing.userId}`,{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        const data = await userInfo.json();
+        if(data.success === false){
+          setError(data.message)
+          return;
+        }
+        setLandlord(data);
+        setContactBtnToggle(!contactBtnToggle);
+      } catch (error) {
+        setError(error)
+      }
+    }
+
+    const handleMessage = (e)=>{
+      setMessage(e.target.value);
+    }
 
   return (
     <main>
@@ -74,10 +111,29 @@ export default function Listing() {
               <div className='flex text-blue-950 font-semibold mr-5'><MdChair /><span className='text-sm px-1'>{listing.furnished ? "Furnished" : "Not Furnished"}</span></div>
             </div>
             <p className='text-lg font-semibold'>{listing.description}</p>
-            <Link to={"/"} className='bg-red-900 text-white p-3 rounded-lg uppercase flex items-center justify-center hover:opacity-85 font-semibold'>
-            Contact Landlord</Link>                   
+            {!contactBtnToggle ? 
+            <button className='bg-red-900 text-white p-3 rounded-lg uppercase flex items-center justify-center hover:opacity-85 font-semibold'
+            onClick={handleContactBtnClick}>
+            <IoMdMail className='text-xl'/>
+            <span className='px-1'>Contact Landlord</span></button>:
+            <div className='relative'>
+              <div className='flex flex-col gap-3'>
+                <p>Contact <b>{landlord.username}</b> for <b>{listing.title}</b></p>
+                <div>
+                  <textarea placeholder='Write your mail here...' className='p-3 w-full' onChange={handleMessage}/>
+                  <button className='absolute top-0 right-0 mt-1 mr-1 text-red-900 hover:opacity-85' onClick={()=>setContactBtnToggle(!contactBtnToggle)}>
+                    <MdCancel size={24} />
+                  </button>
+                </div>
+                <Link to={`mailto:${landlord.email}?subject=Regarding ${listing.title}&body=${message}`} className='bg-red-900 text-white p-3 rounded-lg uppercase flex items-center justify-center hover:opacity-85 font-semibold'>
+                <FaPaperPlane className='text-xl'/>
+                <span className='px-1'>Send Mail</span></Link>
+              </div>
+            </div>
+            }
+                              
           </div>
-        </div>
+        </div>       
       }
     </main>
   )
