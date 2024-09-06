@@ -2,7 +2,7 @@ const errorHandler = require("./errorHandler");
 const jwt = require("jsonwebtoken")
 
 function validateUser(req,res,next){
-    console.log(req.cookies)
+    // console.log(req.cookies)
     const token = req.cookies.access_token;
     if(!token){
         return (next(errorHandler(401, "Unauthorised access")))
