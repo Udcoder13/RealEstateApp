@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ListingCard from '../Components/ListingCard';
+
 
 export default function SearchPage() {
     const [sideBardata, setSideBarData] = useState({
@@ -84,8 +86,8 @@ export default function SearchPage() {
 
   return (
     <div className='flex flex-col md:flex-row'>
-        <div className='p-7 border-b-2 md:border-r-2
-        md:min-h-screen'>
+        <div className='min-w-50 p-7 border-b-2 md:border-r-2
+        md:min-h-screen' style={{"min-width": "fit-content"}}>
             <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
                 <div className='flex items-center gap-2'>
                     <label>Search Term</label>
@@ -96,7 +98,7 @@ export default function SearchPage() {
                     onChange={handleChange}/>
                 </div>
                 <div className='flex gap-2 flex-wrap items-center'>
-                    <label>Type:</label>
+                    <label className='font-bold'>Type:</label>
                     <div className='flex gap-2'>
                         <input type='checkbox' id='all' 
                         className='w-5'
@@ -120,7 +122,7 @@ export default function SearchPage() {
                     </div>
                 </div>
                 <div className='flex gap-2 flex-wrap items-center'>
-                    <label>Amenities:</label>
+                    <label className='font-bold'>Amenities:</label>
                     <div className='flex gap-2'>
                         <input type='checkbox' id='parking' 
                         className='w-5'
@@ -152,6 +154,13 @@ export default function SearchPage() {
         <div className=''>
             <h1 className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>
                 Listing Results:</h1>
+            <div>
+                <div className='flex flex-row flex-wrap gap-4 p-3 border-b'>
+                    {listings.map((listing, index) => (
+                            <ListingCard  key={listing._id} listingInfo={listing} />
+                        ))}
+                </div>
+            </div>
         </div>
     </div>
   )
