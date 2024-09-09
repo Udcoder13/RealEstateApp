@@ -17,6 +17,7 @@ import CreateListing from './Pages/CreateListing.jsx'
 import UserListings from './Pages/UserListings.jsx'
 import UpdateListing from './Pages/UpdateListing.jsx'
 import Listing from './Pages/Listing.jsx'
+import SearchPage from './Pages/SearchPage.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
+      <Route path='search' element={<SearchPage />}/>
     </Route>
   )
 )
