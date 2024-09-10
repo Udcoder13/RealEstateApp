@@ -157,7 +157,7 @@ export default function SearchPage() {
             <div>
                 <div className='flex flex-row flex-wrap gap-4 p-3 border-b'>
                     {listings.map((listing, index) => (
-                            <ListingCard  key={listing._id} listingInfo={listing} />
+                            <ListingCard  key={listing._id} listingInfo={listing} wSearch={true} />
                         ))}
                 </div>
             </div>

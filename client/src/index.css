@@ -5,3 +5,24 @@
 body{
     background-color: rgb(241, 245, 241);
 }
+
+.background-section{
+    position: relative; 
+    z-index: 1;         
+    color: white;
+}
+
+.background-section::before {
+    content: ''; /* Necessary for a pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('./assets/Home_bg.jpg'); /* Path to the background image */
+    background-size: cover;  /* Ensure the image covers the section */
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.7; /* Set the opacity of the background image */
+    z-index: -1;  /* Ensure the background stays behind the content */
+  }
