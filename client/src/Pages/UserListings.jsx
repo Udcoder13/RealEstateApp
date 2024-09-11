@@ -55,7 +55,7 @@ export default function UserListings() {
     // <></>
     <div>
         <h1 className='my-5 font-bold text-2xl text-center'>My Listings</h1>
-        {userListing.length < 1? <h1>You don't have any listings</h1> :userListing.map((listing,index)=>(
+        {userListing.length < 1? <h1 className='text-3xl text-center font-bold'>You don't have any listings</h1> :userListing.map((listing,index)=>(
             <div className='flex p-4 border gap-5'>
                 <img src={listing.images[0]} alt='cover image' className='w-80 h-80 object-cover rounded-lg'></img>
                 <div className='mx-5' >
