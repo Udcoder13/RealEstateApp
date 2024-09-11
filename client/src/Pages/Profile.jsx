@@ -72,6 +72,8 @@ export default function Profile() {
         return;
       }
       dispatch(updateProfile(data))
+      window .location.reload();
+      alert("Profile updated successfully")
     } catch (error) {
       console.log(error)
       setError(error.message)
