@@ -118,7 +118,7 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <section>
+      <section className="mt-15">
         <h1 className="text-5xl font-semibold text-center text-gray-700 mb-15">
           Recent places for sell
         </h1>
