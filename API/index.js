@@ -6,16 +6,13 @@ const bodyParser = require("body-parser");
 const updateRoute = require("./Router/updateRoute")
 const cookieParser = require("cookie-parser")
 const listingRoute = require("./Router/listingRoute")
-const path = require('path');
 
 
-const __dirname = path.resolve();
 const app = express();
 
 dbConnect();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cookieParser());
 app.use("/api/user", userRoute)
