@@ -6,6 +6,9 @@ const bodyParser = require("body-parser");
 const updateRoute = require("./Router/updateRoute")
 const cookieParser = require("cookie-parser")
 const listingRoute = require("./Router/listingRoute")
+const dotenv = require('dotenv')
+
+dotenv.config();
 
 
 const app = express();
@@ -14,9 +17,10 @@ dbConnect();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(3000,()=>{
-    console.log('server is running on port 3000');
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 app.use(cookieParser());
 app.use("/api/user", userRoute)
 app.use("/api/update", updateRoute)
