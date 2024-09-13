@@ -14,6 +14,9 @@ dbConnect();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.listen(3000,()=>{
+    console.log('server is running on port 3000');
+})
 app.use(cookieParser());
 app.use("/api/user", userRoute)
 app.use("/api/update", updateRoute)
@@ -34,6 +37,3 @@ app.use((error,req,res,next)=>{
     })
 })
 
-app.listen(3000,()=>{
-    console.log('server is running on port 3000');
-})
