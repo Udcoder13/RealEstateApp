@@ -48,7 +48,7 @@ export default function SignUp() {
     if (!data.email.trim()) {
       setError("Email is required");
       return false;
-    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(data.email)) {
       setError("Email is invalid");
       return false;
     }

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Footer() {
+
   return (
     <footer className="bg-gray-800 text-white">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -36,7 +37,7 @@ export default function Footer() {
     </div>
 
     <div className="mt-8 border-t border-gray-700 pt-4">
-      <p className="text-center text-gray-400">&copy; 2024 YourCompany. All rights reserved.</p>
+      <p className="text-center text-gray-400">&copy; {new Date().getFullYear()} YourCompany. All rights reserved.</p>
     </div>
   </div>
 </footer>
