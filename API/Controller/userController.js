@@ -26,6 +26,7 @@ const signUp = async(req,res,next)=>{
 
 const login = async(req,res,next)=>{
     const data = req.body;
+    console.log(data);
     try {
         const result = await  userModel.findOne({email:data.email})
         if(!result){

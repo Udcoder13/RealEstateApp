@@ -29,6 +29,7 @@ const deleteListing = async(req,res,next)=>{
     if(req.user.id === req.params.userid){
         try {
             const listingId = req.params.listingid;
+            console.log(listingId);
             await listingModel.findByIdAndDelete(listingId)
             res.status(200).json({message: "listing deleted"})
         } catch (error) {

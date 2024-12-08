@@ -81,7 +81,7 @@ export default function UserListings() {
                         <p><span className='font-bold'>Discount price:</span> ₹{listing.discountPrice}</p> : ""}
                     </div>
                 </div>
-                <div><OptionsButton deleteFunction = {()=>deletelisting(index,listing)} updateFunction = {()=>updateListingClick(listing)}/></div>
+                <div><OptionsButton deleteFunction = {()=>deletelisting(index,listing._id)} updateFunction = {()=>updateListingClick(listing)}/></div>
     
             </div>
         ))}
